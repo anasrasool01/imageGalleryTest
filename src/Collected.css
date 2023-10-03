@@ -1,0 +1,9 @@
+.card2 {
+    justify-content: center;
+    /* overflow: hidden; */
+    /* flex-wrap: wrap; */
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 2.5%;
+    grid-row-gap: 5%;
+}

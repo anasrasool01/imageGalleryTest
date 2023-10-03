@@ -1,0 +1,17 @@
+.image-uploader {
+    align-items: center;
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    align-self: center;
+}
+
+.input-image {
+    border: none
+}
+
+.btn-image {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}

@@ -1,0 +1,48 @@
+.sizes-btn {
+    display: flex;
+    position: absolute;
+    top: 65%;
+    left: 19.5%;
+}
+
+.image-background {
+    max-height: 530px;
+    width: 1365px;
+}
+
+.size-btn {
+    border: none;
+    padding: 6%;
+    border-radius: 5px;
+    margin: 2.5%;
+    background-color: "yellowgreen";
+}
+
+.small-card {
+    width: 150px;
+    height: 200px;
+}
+
+.medium-card {
+    width: 250px;
+    height: 300px;
+}
+
+.large-card {
+    width: 350px;
+    height: 400px;
+}
+
+.search-bar {
+    padding: 3%;
+    border: none;
+    border-radius: 5px;
+    width: 500px;
+}
+
+.search-bar-main {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 20%;
+}
