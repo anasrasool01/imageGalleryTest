@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { Button } from 'antd';
+import React from 'react';
 import './Card.css';
 
-function Card({ image, onAddToCollection, onDelete, globalStyle }) {
-    const [searchQuery, setSearchQuery] = useState('');
-
+function Card({ image, onAddToCollection, onDelete, globalStyle, cardSize }) {
     const handleDeleteClick = () => {
         let id = image.split("uploads")[1];
         onDelete(id);
@@ -26,22 +25,24 @@ function Card({ image, onAddToCollection, onDelete, globalStyle }) {
             });
     };
 
-    const isMatchingSearch = image.toLowerCase().includes(searchQuery.toLowerCase());
-    if (!isMatchingSearch) {
-        return null;
-    }
-
     return (
         <div className="card" style={{ ...globalStyle }}>
             <div className="card-image">
-                <img src={image} alt={image.id} />
+                <img src={image} alt={image.id} width={50} height={50} />
                 <span>{image.split("uploads/")[1]}</span>
             </div>
-            <div className="card-buttons">
-                <button className='btn-card' onClick={() => onAddToCollection(image)}>Add to Collection</button>
-                <button className='btn-card' onClick={() => handleDownloadClick(image)}>Download</button>
-                <button className='btn-card' onClick={handleDeleteClick}>Delete</button>
-                {/* <button>Settings</button> */}
+            <div style={{ display: 'flex', justifyContent: 'space-evenly', margin: 10 }}>
+                <Button type="primary" size={cardSize} onClick={() => handleDownloadClick(image)}>
+                    Download
+                </Button>
+                <Button type="primary" size={cardSize} onClick={handleDeleteClick}>
+                    Delete
+                </Button>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button type="primary" size={cardSize} onClick={() => onAddToCollection(image)}>
+                    Add to Collection
+                </Button>
             </div>
         </div>
     );

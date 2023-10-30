@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Card from './Card';
+import './Home.css';
 import ImageUploader from './ImageUploader';
 import Loader from './Loader';
-import { useNavigate } from "react-router-dom";
-import './Home.css'
 import background from './background.jpg';
 
 function Home() {
@@ -25,7 +25,7 @@ function Home() {
     const fetchImages = async () => {
         try {
             setIsLoading(true);
-            let res = await fetch('http://localhost:3001/images', {
+            let res = await fetch('http://localhost:3002/images', {
                 method: "GET"
             }).then((res) => res.json());
             setIsLoading(false);
@@ -46,7 +46,7 @@ function Home() {
     const deleteImages = async (imageId) => {
         console.log(imageId, "images")
         try {
-            let res = await fetch(`http://localhost:3001/images${imageId}`, {
+            let res = await fetch(`http://localhost:3002/images${imageId}`, {
                 method: "DELETE"
             });
 
@@ -67,17 +67,17 @@ function Home() {
 
     const mediumcard = {
         width: 250,
-        height: 230
+        height: 260
     };
 
     const smallcard = {
-        width: 150,
-        height: 170
+        width: 200,
+        height: 250
     };
 
     const largecard = {
         width: 350,
-        height: 330,
+        height: 270,
     };
 
     let globalStyle;
@@ -105,9 +105,6 @@ function Home() {
             <img className='image-background' src={background} alt='no img'></img>
 
             <ImageUploader onUpload={handleImageUpload} fetchImages={fetchImages} />
-
-
-
             <div className='search-bar-main '>
                 <input
                     type="text"
@@ -141,15 +138,21 @@ function Home() {
                     Collections
                 </button>
 
-                <button className="size-btn" onClick={() => handleCardSizeChange("small")}>
+                <button className="size-btn" onClick={() => {
+                    handleCardSizeChange("small")
+                }}>
                     Small
                 </button>
 
-                <button className="size-btn" onClick={() => handleCardSizeChange("medium")}>
+                <button className="size-btn" onClick={() => {
+                    handleCardSizeChange("medium")
+                }}>
                     Medium
                 </button>
 
-                <button className="size-btn" onClick={() => handleCardSizeChange("large")}>
+                <button className="size-btn" onClick={() => {
+                    handleCardSizeChange("large")
+                }}>
                     Large
                 </button>
             </div>

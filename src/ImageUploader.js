@@ -1,47 +1,57 @@
 import React, { useState, useRef } from 'react';
-import './ImageUploader.css'
+import './ImageUploader.css';
+import { Button, message, Progress } from 'antd';
 
 function ImageUploader({ fetchImages }) {
     const [selectedImage, setSelectedImage] = useState(null);
-    const [image, setImage] = useState([]);
+    const [uploadProgress, setUploadProgress] = useState(0);
     const inputRef = useRef(null);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-        setImage(file);
-        setSelectedImage(file);
+        setSelectedImage(URL.createObjectURL(file));
     };
 
-    const UploadImage = async () => {
-        try {
-            let formData = new FormData();
-            formData.append("image", image);
+    const uploadImage = async () => {
+        if (!selectedImage) {
+            message.error('Please select an image to upload.');
+            return;
+        }
 
-            const response = await fetch("http://localhost:3001/upload", {
+        try {
+            const formData = new FormData();
+            formData.append("image", inputRef.current.files[0]);
+
+            const response = await fetch("http://localhost:3002/upload", {
                 method: "POST",
                 body: formData,
             });
 
-            if (!response.ok) {
+            if (response.ok) {
+                message.success('image uploaded.');
+                // console.log("Uploaded image details:", await response.text());
+                fetchImages();
+                setUploadProgress(100); // Set progress to 100% on success
+                if (inputRef.current) {
+                    inputRef.current.value = '';
+                }
+
+                // Reset progress to 0 after 2-3 seconds
+                setTimeout(() => {
+                    setUploadProgress(0);
+                }, 2000);
+                setSelectedImage(null);
                 throw new Error('Failed to upload image');
-            }
-
-            const responseData = await response.json();
-            console.log("Uploaded image details:", responseData);
-            fetchImages();
-
-            if (inputRef.current) {
-                inputRef.current.value = '';
             }
         } catch (error) {
             console.error('Error uploading image:', error);
+            setUploadProgress(0);
         }
     };
 
     return (
         <div className='image-uploader'>
-
-            <h1>This Is What I want </h1>
+            <h1>This Is What I want</h1>
             <p>To Store and get Information</p>
 
             <input
@@ -51,7 +61,22 @@ function ImageUploader({ fetchImages }) {
                 ref={inputRef}
                 className='input-image'
             />
-            <button onClick={UploadImage} className='btn-image'>Upload Image</button>
+
+            {selectedImage && (
+                <img
+                    src={selectedImage}
+                    alt="Selected"
+                    className="selected-image"
+                />
+            )}
+
+            <Button onClick={uploadImage} className='btn-image'>Upload</Button>
+
+            <Progress
+                type="line"
+                percent={uploadProgress}
+                status={uploadProgress === 100 ? 'success' : 'active'}
+            />
         </div>
     );
 }

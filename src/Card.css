@@ -17,7 +17,7 @@
 
 .card-image img {
     width: 100%;
-    height: auto;
+    height: 145px;
 }
 
 .btn-card {
@@ -49,7 +49,6 @@
     background-color: #0056b3;
 }
 
-
 .image-grid {
     display: flex;
     justify-content: center;
@@ -59,5 +58,6 @@
     grid-template-columns: auto auto auto;
     grid-gap: 2.5%;
     grid-row-gap: 5%;
-    padding-bottom: 4%;
+    padding-bottom: 14%;
+    padding-top: 4%;
 }

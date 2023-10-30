@@ -1,7 +1,7 @@
 .image-uploader {
     align-items: center;
     position: absolute;
-    top: 20%;
+    top: 15%;
     left: 20%;
     align-self: center;
 }
@@ -14,4 +14,23 @@
     padding: 10px;
     border-radius: 10px;
     border: none;
+}
+
+.selected-image {
+    position: absolute;
+    left: 100%;
+    top: 40%;
+    width: 176px;
+    height: 126px;
+    border-radius: 1rem;
+}
+
+:where(.css-dev-only-do-not-override-pr0fja).ant-progress .ant-progress-inner {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    vertical-align: middle;
+    background-color: rgba(14, 13, 13, 0.5);
+    border-radius: 100px;
 }
